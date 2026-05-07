@@ -1,0 +1,159 @@
+<!-- MOCKUP ONLY — awaiting approval before implementation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Memory OS — Meeting Detail Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Back link */
+  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #64748b; text-decoration: none; margin-bottom: 20px; }
+  .back:hover { color: #3b82f6; }
+
+  /* Header */
+  .header { margin-bottom: 28px; }
+  .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .header-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .header-meta .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px; color: #64748b;
+  }
+
+  /* Participants */
+  .participants { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .participant {
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    background: #f1f5f9; color: #475569;
+  }
+
+  /* Summary card */
+  .summary-card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 20px; margin-bottom: 24px;
+  }
+  .summary-card .label { font-size: 11px; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .summary-card ul { padding-left: 18px; }
+  .summary-card li { font-size: 14px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+  .tab {
+    padding: 10px 20px; font-size: 13px; font-weight: 500; color: #64748b;
+    border-bottom: 2px solid transparent; cursor: pointer;
+  }
+  .tab:hover { color: #1e293b; }
+  .tab.active { color: #0f172a; border-bottom-color: #3b82f6; font-weight: 600; }
+
+  /* Transcript */
+  .transcript { background: white; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+  .turn { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+  .turn:last-child { border-bottom: none; }
+  .turn-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .turn-speaker { font-size: 13px; font-weight: 600; color: #1e293b; }
+  .turn-time { font-size: 11px; color: #94a3b8; }
+  .turn-text { font-size: 14px; line-height: 1.65; color: #475569; }
+
+  /* Speaker colors */
+  .speaker-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .speaker-dot.s1 { background: #3b82f6; }
+  .speaker-dot.s2 { background: #22c55e; }
+  .speaker-dot.s3 { background: #f59e0b; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <a href="#" class="back">← Back to meetings</a>
+
+  <div class="header">
+    <h1>Sprint Planning — Week 18</h1>
+    <div class="header-meta">
+      <span class="tag">📅 May 5, 2026</span>
+      <span class="tag">⏱ 45 minutes</span>
+      <span class="tag">👥 4 participants</span>
+    </div>
+    <div class="participants">
+      <span class="participant">Alice</span>
+      <span class="participant">Bob</span>
+      <span class="participant">Carol</span>
+      <span class="participant">Dave</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-card">
+    <div class="label">AI Summary</div>
+    <ul>
+      <li><strong>Auth system completed</strong> — Google OAuth with NextAuth.js and Drive readonly scope is live and passing all tests.</li>
+      <li><strong>Database schema deployed</strong> — All five Postgres tables created in Supabase with proper indexes and SQLAlchemy models.</li>
+      <li><strong>Drive watcher integrated</strong> — Webhooks registered per user, auto-filtering for Meet Transcript files, 7-day renewal logic.</li>
+      <li><strong>RAG pipeline decided</strong> — 300-word max chunks with 2-sentence overlap. Chunks under 20 words skipped.</li>
+      <li><strong>Action item</strong> — Bob to implement the chunker by end of day with tests.</li>
+    </ul>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active">Transcript</div>
+    <div class="tab">Chunks (8)</div>
+  </div>
+
+  <!-- Transcript -->
+  <div class="transcript">
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s1"></span>
+        <span class="turn-speaker">Alice</span>
+        <span class="turn-time">00:00:05</span>
+      </div>
+      <div class="turn-text">Good morning everyone. Let's start with the sprint review. We had a productive week and I want to go through the highlights.</div>
+    </div>
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s2"></span>
+        <span class="turn-speaker">Bob</span>
+        <span class="turn-time">00:01:30</span>
+      </div>
+      <div class="turn-text">Thanks Alice. The auth system is now complete. We implemented Google OAuth with drive readonly scope. The login page is live and tests are passing.</div>
+    </div>
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s1"></span>
+        <span class="turn-speaker">Alice</span>
+        <span class="turn-time">00:02:45</span>
+      </div>
+      <div class="turn-text">Great work Bob. What about the database migration? Did we get that sorted out with the new schema?</div>
+    </div>
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s2"></span>
+        <span class="turn-speaker">Bob</span>
+        <span class="turn-time">00:03:15</span>
+      </div>
+      <div class="turn-text">Yes, the schema is deployed to Supabase. All five tables are created with proper indexes. We also have the SQLAlchemy models mirroring everything.</div>
+    </div>
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s3"></span>
+        <span class="turn-speaker">Carol</span>
+        <span class="turn-time">00:04:00</span>
+      </div>
+      <div class="turn-text">I finished the Drive watcher integration. Webhooks are registered per user and we filter for Meet Transcript files automatically. The auto-renewal logic handles the 7-day expiry.</div>
+    </div>
+    <div class="turn">
+      <div class="turn-header">
+        <span class="speaker-dot s1"></span>
+        <span class="turn-speaker">Alice</span>
+        <span class="turn-time">00:05:30</span>
+      </div>
+      <div class="turn-text">Excellent. Let's discuss the RAG pipeline next. We need to decide on the chunk size and overlap strategy before we proceed.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

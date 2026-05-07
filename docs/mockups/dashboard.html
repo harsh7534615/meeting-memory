@@ -1,0 +1,319 @@
+<!-- MOCKUP ONLY — awaiting approval before implementation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Memory OS — Dashboard Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
+
+  /* Layout */
+  .app { display: flex; height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 280px; background: white; border-right: 1px solid #e2e8f0;
+    display: flex; flex-direction: column; flex-shrink: 0;
+  }
+  .sidebar-header {
+    padding: 20px; border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sidebar-header .logo { font-size: 16px; font-weight: 700; }
+  .sidebar-header .logo span { color: #3b82f6; }
+  .sidebar-nav { padding: 12px; }
+  .sidebar-nav a {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    border-radius: 8px; font-size: 14px; color: #475569; text-decoration: none;
+    transition: all 0.1s;
+  }
+  .sidebar-nav a:hover, .sidebar-nav a.active { background: #f1f5f9; color: #0f172a; }
+  .sidebar-nav a.active { font-weight: 600; }
+  .sidebar-divider { height: 1px; background: #e2e8f0; margin: 8px 12px; }
+  .sidebar-section-title { padding: 12px 12px 6px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .meeting-item {
+    display: flex; flex-direction: column; padding: 10px 12px; border-radius: 8px;
+    cursor: pointer; transition: all 0.1s;
+  }
+  .meeting-item:hover { background: #f1f5f9; }
+  .meeting-item .title { font-size: 13px; font-weight: 500; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meeting-item .meta { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  .sidebar-footer {
+    margin-top: auto; padding: 16px; border-top: 1px solid #e2e8f0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #64748b; }
+  .user-info { font-size: 13px; }
+  .user-info .name { font-weight: 500; color: #1e293b; }
+  .user-info .email { font-size: 11px; color: #94a3b8; }
+
+  /* Main content */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Search bar */
+  .search-area { padding: 24px 32px 0; }
+  .search-box {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 14px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: all 0.15s;
+  }
+  .search-box:focus-within { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+  .search-box input {
+    flex: 1; border: none; outline: none; font-size: 15px; color: #0f172a;
+    background: transparent;
+  }
+  .search-box input::placeholder { color: #94a3b8; }
+  .search-btn {
+    padding: 8px 20px; border-radius: 8px; background: #0f172a; color: white;
+    border: none; font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .search-btn:hover { background: #1e293b; }
+
+  .filter-bar { display: flex; gap: 8px; margin-top: 12px; }
+  .filter-chip {
+    padding: 5px 12px; border-radius: 6px; font-size: 12px;
+    border: 1px solid #e2e8f0; background: white; color: #475569; cursor: pointer;
+  }
+  .filter-chip:hover { border-color: #cbd5e1; }
+  .filter-chip.active { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+
+  /* Content area */
+  .content { flex: 1; overflow-y: auto; padding: 24px 32px; }
+
+  /* Answer panel */
+  .answer-panel {
+    background: white; border-radius: 12px; border: 1px solid #e2e8f0;
+    padding: 24px; margin-bottom: 20px;
+  }
+  .answer-panel .answer-label { font-size: 11px; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .answer-panel .answer-text { font-size: 15px; line-height: 1.7; color: #1e293b; }
+  .answer-panel .answer-text .source-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    background: #eff6ff; color: #2563eb; cursor: pointer;
+  }
+  .answer-panel .answer-text .source-tag:hover { background: #dbeafe; }
+  .confidence { display: flex; align-items: center; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+  .confidence-label { font-size: 12px; color: #94a3b8; }
+  .confidence-bar { width: 100px; height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+  .confidence-fill { height: 100%; background: #22c55e; border-radius: 2px; }
+
+  /* Citations */
+  .citations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .citation-card {
+    padding: 14px; border-radius: 10px; border: 1px solid #e2e8f0; background: #fafbfc;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .citation-card:hover { border-color: #93c5fd; background: #f8faff; }
+  .citation-card .citation-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .citation-card .citation-badge { font-size: 11px; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 4px; }
+  .citation-card .citation-meeting { font-size: 12px; font-weight: 600; color: #1e293b; }
+  .citation-card .citation-meta { font-size: 11px; color: #94a3b8; margin-bottom: 6px; }
+  .citation-card .citation-text { font-size: 12px; color: #475569; line-height: 1.5; }
+
+  /* Empty state */
+  .empty-state {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 40px; text-align: center;
+  }
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-state h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+  .empty-state p { font-size: 14px; color: #64748b; max-width: 400px; line-height: 1.6; }
+
+  /* Loading skeleton */
+  .skeleton { background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .skeleton-line { height: 14px; margin-bottom: 10px; }
+  .skeleton-line.w60 { width: 60%; }
+  .skeleton-line.w80 { width: 80%; }
+  .skeleton-line.w40 { width: 40%; }
+
+  /* No results */
+  .no-results { text-align: center; padding: 40px; }
+  .no-results h3 { font-size: 16px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+  .no-results p { font-size: 13px; color: #94a3b8; }
+
+  /* State toggle (mockup only) */
+  .state-toggles {
+    position: fixed; bottom: 20px; right: 20px; display: flex; gap: 6px;
+    background: #1e293b; padding: 10px 14px; border-radius: 10px; z-index: 100;
+  }
+  .state-toggles button {
+    padding: 5px 12px; border-radius: 5px; border: 1px solid #475569;
+    background: transparent; color: #94a3b8; font-size: 11px; cursor: pointer;
+  }
+  .state-toggles button.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Meeting <span>Memory</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active">🔍 Search</a>
+      <a href="#">📋 Meetings</a>
+      <a href="#">⚙️ Settings</a>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Recent Meetings</div>
+    <div class="sidebar-nav">
+      <div class="meeting-item">
+        <span class="title">Sprint Planning — Week 18</span>
+        <span class="meta">May 5, 2026 · 45 min · 4 participants</span>
+      </div>
+      <div class="meeting-item">
+        <span class="title">Design Review — Auth Flow</span>
+        <span class="meta">May 3, 2026 · 30 min · 3 participants</span>
+      </div>
+      <div class="meeting-item">
+        <span class="title">All Hands — Q2 Kickoff</span>
+        <span class="meta">May 1, 2026 · 60 min · 12 participants</span>
+      </div>
+      <div class="meeting-item">
+        <span class="title">Backend Architecture Discussion</span>
+        <span class="meta">Apr 28, 2026 · 40 min · 3 participants</span>
+      </div>
+      <div class="meeting-item">
+        <span class="title">1:1 — Alice & Bob</span>
+        <span class="meta">Apr 25, 2026 · 25 min · 2 participants</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="avatar">HY</div>
+      <div class="user-info">
+        <div class="name">Harsh Yadav</div>
+        <div class="email">harsh@example.com</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Search -->
+    <div class="search-area">
+      <div class="search-box">
+        <span style="color:#94a3b8">🔍</span>
+        <input type="text" placeholder="Ask anything about your meetings..." id="searchInput" value="What did we decide about the auth system?" />
+        <button class="search-btn">Search</button>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-chip active">All time</span>
+        <span class="filter-chip">Last 7 days</span>
+        <span class="filter-chip">Last 30 days</span>
+        <span class="filter-chip">Custom range</span>
+        <span class="filter-chip">Speaker: All</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- STATE: Default / Empty -->
+      <div id="state-default" class="hidden">
+        <div class="empty-state">
+          <div class="empty-icon">💬</div>
+          <h3>Ask about your meetings</h3>
+          <p>Type a question in the search bar to find decisions, action items, or anything discussed in your meetings.</p>
+          <div style="margin-top:24px; display:flex; flex-direction:column; gap:8px; width:100%; max-width:360px;">
+            <div style="padding:10px 14px; border-radius:8px; border:1px solid #e2e8f0; font-size:13px; color:#475569; cursor:pointer; text-align:left;">"What did we decide about the auth system?"</div>
+            <div style="padding:10px 14px; border-radius:8px; border:1px solid #e2e8f0; font-size:13px; color:#475569; cursor:pointer; text-align:left;">"What action items came out of last week's sprint?"</div>
+            <div style="padding:10px 14px; border-radius:8px; border:1px solid #e2e8f0; font-size:13px; color:#475569; cursor:pointer; text-align:left;">"What did Carol say about the Q2 budget?"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE: Loading -->
+      <div id="state-loading" class="hidden">
+        <div class="answer-panel">
+          <div class="answer-label">Searching your meetings...</div>
+          <div class="skeleton skeleton-line w80"></div>
+          <div class="skeleton skeleton-line w60"></div>
+          <div class="skeleton skeleton-line w80"></div>
+          <div class="skeleton skeleton-line w40"></div>
+        </div>
+        <div class="citations">
+          <div class="citation-card"><div class="skeleton skeleton-line w60"></div><div class="skeleton skeleton-line w80"></div></div>
+          <div class="citation-card"><div class="skeleton skeleton-line w60"></div><div class="skeleton skeleton-line w80"></div></div>
+        </div>
+      </div>
+
+      <!-- STATE: Results -->
+      <div id="state-results">
+        <div class="answer-panel">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            The auth system decision was made across two meetings. In the <strong>Sprint Planning</strong> session, the team decided to use <strong>JWT tokens with Google OAuth</strong> via NextAuth.js <span class="source-tag">SOURCE 1</span>. Bob was assigned to implement it by end of week.
+            <br><br>
+            By the <strong>Design Review</strong>, the implementation was complete — Google OAuth with Drive readonly scope was working, and all tests were passing <span class="source-tag">SOURCE 2</span>. The login page was deployed with a two-column layout matching the approved mockup.
+          </div>
+          <div class="confidence">
+            <span class="confidence-label">Confidence: 92%</span>
+            <div class="confidence-bar"><div class="confidence-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+
+        <div style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:10px;">Sources (2)</div>
+        <div class="citations">
+          <div class="citation-card">
+            <div class="citation-header">
+              <span class="citation-badge">SOURCE 1</span>
+              <span style="font-size:11px; color:#94a3b8;">May 5, 2026</span>
+            </div>
+            <div class="citation-meeting">Sprint Planning — Week 18</div>
+            <div class="citation-meta">🎤 Bob · ⏱ 00:01:30</div>
+            <div class="citation-text">"The auth system is now complete. We implemented Google OAuth with drive readonly scope. The login page is live and tests are passing."</div>
+          </div>
+          <div class="citation-card">
+            <div class="citation-header">
+              <span class="citation-badge">SOURCE 2</span>
+              <span style="font-size:11px; color:#94a3b8;">May 3, 2026</span>
+            </div>
+            <div class="citation-meeting">Design Review — Auth Flow</div>
+            <div class="citation-meta">🎤 Alice · ⏱ 00:05:30</div>
+            <div class="citation-text">"Great work on the OAuth integration. The two-column login layout looks clean. Let's move on to the Drive watcher next."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE: No results -->
+      <div id="state-noresults" class="hidden">
+        <div class="answer-panel">
+          <div class="no-results">
+            <h3>No clear discussion found</h3>
+            <p>I couldn't find a clear discussion about this in your meetings. Try rephrasing your question or broadening the date range.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- State toggles -->
+<div class="state-toggles">
+  <button onclick="show('default', this)">Empty</button>
+  <button onclick="show('loading', this)">Loading</button>
+  <button class="active" onclick="show('results', this)">Results</button>
+  <button onclick="show('noresults', this)">No Results</button>
+</div>
+
+<script>
+function show(state, el) {
+  document.querySelectorAll('[id^=state-]').forEach(e => e.classList.add('hidden'));
+  document.getElementById('state-' + state).classList.remove('hidden');
+  document.querySelectorAll('.state-toggles button').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+
+</body>
+</html>

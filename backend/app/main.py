@@ -46,6 +46,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://meeting-memory.vercel.app",
         "https://meeting-memory-kggu.onrender.com",
     ],
     allow_credentials=True,

@@ -124,7 +124,7 @@ Scheduled job (Monday 9am, user's timezone)
 | Gemini free tier | Rate-limited. Embedder batches in groups of 20 with exponential backoff on 429s. May need paid tier at scale. |
 | BackgroundTasks over Redis Queue | Simpler to start, but tasks are lost if the server restarts mid-processing. Acceptable for MVP; upgrade planned. |
 | Server-side RAG only | No client-side caching of embeddings. Every query hits the backend. Fine for now; can add caching later. |
-| Single region deployment | Backend on Railway (single region). Latency may be higher for users far from the region. |
+| Single region deployment | Backend on Render (single region). Latency may be higher for users far from the region. |
 | NextAuth.js for auth | Handles OAuth flow on the frontend side. Backend validates tokens independently. Two auth boundaries to maintain. |
 
 ---

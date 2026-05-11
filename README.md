@@ -24,7 +24,7 @@
 | Vector DB | Pinecone (serverless, 768 dims, cosine) |
 | Relational DB | Supabase (Postgres) |
 | Email | Resend |
-| Deployment | Vercel (frontend) + Railway (backend) |
+| Deployment | Vercel (frontend) + Render (backend) |
 
 ## Prerequisites
 

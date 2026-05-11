@@ -90,9 +90,27 @@ Legend: [ ] todo | [→] in progress | [DONE] complete | [SKIP] deferred
 ## PHASE 9 — Deployment
 
 - [DONE] 9.1  Dockerise FastAPI backend — Dockerfile + .dockerignore created
-- [DONE] 9.2  Deploy backend to Railway — railway.toml config created (manual: push to GitHub, connect Railway)
+- [DONE] 9.2  Deploy backend to Render (manual: push to GitHub, connect Render)
 - [DONE] 9.3  Deploy frontend to Vercel — Next.js auto-detected (manual: connect GitHub repo in Vercel)
-- [ ] 9.4  Set all environment variables in Railway + Vercel dashboards (manual step)
+- [ ] 9.4  Set all environment variables in Render + Vercel dashboards (manual step)
 - [ ] 9.5  Register production Google OAuth redirect URI (manual step)
 - [ ] 9.6  Register production webhook URL with Google Drive API (manual step)
 - [ ] 9.7  Smoke test: full flow on production — login → Drive connect → query (manual step)
+
+## PHASE 10 — UI Redesign
+
+- [DONE] 10.1 Generated Superdesign mockups for all views (AI Query, Meeting Hub, Meeting Detail, Team Insights)
+- [DONE] 10.2 Updated Tailwind config + globals.css to dark-mode indigo palette with AI glow effects
+- [DONE] 10.3 Redesigned Sidebar with Lucide icons, active indicator, gradient branding
+- [DONE] 10.4 Redesigned Dashboard layout with ambient glow and command-center search bar
+- [DONE] 10.5 Redesigned AI Query page with citation cards and confidence bar
+- [DONE] 10.6 Redesigned Meeting Hub with card grid layout, badges, and filter bar
+- [DONE] 10.7 Redesigned Meeting Detail with split-pane summary + color-coded transcript
+
+## PHASE 11 — Team Insights Dashboard
+
+- [DONE] 11.1 PRD created — docs/PRD.md with full functional + non-functional requirements
+- [DONE] 11.2 Backend: GET /insights endpoint — aggregated meeting stats from Postgres (routers/insights.py)
+- [DONE] 11.3 Frontend: /insights page — metric cards, meeting volume chart, speaker participation, recent activity
+- [DONE] 11.4 Wire frontend to live backend API — InsightsResponse type, apiGet call with days filter
+- [ ] 11.5 TEST: Insights endpoint unit tests
